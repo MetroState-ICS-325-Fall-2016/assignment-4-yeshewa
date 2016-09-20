@@ -13,8 +13,14 @@ class FormHelper {
     public function input($type, $attributes = array(), $isMultiple = false) {
         $attributes['type'] = $type;
         if (($type == 'radio') || ($type == 'checkbox')) {
-            if ($this->isOptionSelected($attributes['name'] ?? null,
-                                        $attributes['value'] ?? null)) {
+            if (!isset($attributes['name'])) {
+                $attributes['name'] = null;
+            }
+            if (!isset($attributes['value'])) {
+                $attributes['value'] = null;
+            }
+            if ($this->isOptionSelected($attributes['name'],
+                                        $attributes['value'])) {
                 $attributes['checked'] = true;
             }
         }
@@ -22,16 +28,31 @@ class FormHelper {
     }
 
     public function select($options, $attributes = array()) {
-        $multiple = $attributes['multiple'] ?? false;
+        if (isset($attributes['multiple'])) {
+            $multiple = $attributes['multiple'];
+        } else {
+            $multiple = false;
+        }
+
+        if (!isset($attributes['name'])) {
+            $attributes['name'] = null;
+        }
         return
             $this->start('select', $attributes, $multiple) .
-            $this->options($attributes['name'] ?? null, $options) .
+            $this->options($attributes['name'], $options) .
             $this->end('select');
     }
 
     public function textarea($attributes = array()) {
-        $name = $attributes['name'] ?? null;
-        $value = $this->values[$name] ?? '';
+        if (!isset($attributes['name'])) {
+            $attributes['name'] = null;
+        }
+        $name = $attributes['name'];
+        if (isset($this->values[$name])) {
+            $value = $this->values[$name];
+        } else {
+            $value = '';
+        }
         return $this->start('textarea', $attributes) .
                htmlentities($value) .
                $this->end('textarea');

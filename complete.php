@@ -51,22 +51,38 @@ function validate_form( ) {
     $errors = array( );
 
     // name is required
-    $input['name'] = trim($_POST['name'] ?? '');
+    if (isset($_POST['name'])) {
+        $input['name'] = trim($_POST['name']);
+    } else {
+        $input['name'] = '';
+    }
     if (! strlen($input['name'])) {
         $errors[] = 'Please enter your name.';
     }
     // size is required
-    $input['size'] = $_POST['size'] ?? '';
+    if(isset($_POST['size'])) {
+        $input['size'] = trim($_POST['size']);
+    } else {
+        $input['size'] = '';
+    }
     if (! in_array($input['size'], ['small','medium','large'])) {
         $errors[] = 'Please select a size.';
     }
     // sweet is required
-    $input['sweet'] = $_POST['sweet'] ?? '';
+    if (isset($_POST['sweet'])) {
+        $input['sweet'] = $_POST['sweet'];
+    } else {
+        $input['sweet'] = '';
+    }
     if (! array_key_exists($input['sweet'], $GLOBALS['sweets'])) {
         $errors[] = 'Please select a valid sweet item.';
     }
     // exactly two main dishes required
-    $input['main_dish'] = $_POST['main_dish'] ?? array();
+    if (isset($_POST['main_dish'])) {
+        $input['main_dish'] = $_POST['main_dish'];
+    } else {
+        $input['main_dish'] = array();
+    }
     if (count($input['main_dish']) != 2) {
         $errors[] = 'Please select exactly two main dishes.';
     } else {
@@ -78,8 +94,16 @@ function validate_form( ) {
         }
     }
     // if delivery is checked, then comments must contain something
-    $input['delivery'] = $_POST['delivery'] ?? 'no';
-    $input['comments'] = trim($_POST['comments'] ?? '');
+    if (isset($_POST['delivery'])) {
+        $input['delivery'] = $_POST['delivery'];
+    } else {
+        $input['delivery'] = 'no';
+    }
+    if (isset($_POST['comments'])) {
+        $input['comments'] = trim($_POST['comments']);
+    } else {
+        $input['comments'] = '';
+    }
     if (($input['delivery'] == 'yes') && (! strlen($input['comments']))) {
         $errors[] = 'Please enter your address for delivery.';
     }
@@ -108,10 +132,11 @@ _ORDER_;
         $message .= 'Your comments: '.$input['comments'];
     }
 
-    // send the message to the chef
-    mail('chef@restaurant.example.com', 'New Order', $message);
+    // send the message to the chef (don't actually try to send it, uncomment for production):
+    # mail('chef@restaurant.example.com', 'New Order', $message);
+
     // print the message, but encode any HTML entities
     // and turn newlines into <br/> tags
     print nl2br(htmlentities($message, ENT_HTML5));
 }
-?>
+
