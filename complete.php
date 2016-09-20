@@ -126,7 +126,7 @@ function process_form($input) {
     $message=<<<_ORDER_
 Thank you for your order, {$input['name']}.
 You requested the {$input['size']} size of $sweet, $main_dish_1, and $main_dish_2.
-You $delivery want delivery.
+You $delivery want delivery.\n
 _ORDER_;
     if (strlen(trim($input['comments']))) {
         $message .= 'Your comments: '.$input['comments'];
@@ -137,6 +137,6 @@ _ORDER_;
 
     // print the message, but encode any HTML entities
     // and turn newlines into <br/> tags
-    print nl2br(htmlentities($message, ENT_HTML5));
+    print str_replace('&NewLine;', "<br />\n", htmlentities($message, ENT_HTML5));
 }
 

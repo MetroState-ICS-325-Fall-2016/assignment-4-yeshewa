@@ -59,7 +59,12 @@ class FormHelper {
     }
 
     public function tag($tag, $attributes = array(), $isMultiple = false) {
-        return "<$tag {$this->attributes($attributes, $isMultiple)} />";
+        if ($attributes['type'] === 'radio') {
+            $valueAttribute = false;
+        } else {
+            $valueAttribute = true;
+        }
+        return "<$tag {$this->attributes($attributes, $isMultiple, $valueAttribute)} />";
     }
     public function start($tag, $attributes = array(), $isMultiple = false) {
         // <select> and <textarea> tags don't get value attributes on them
