@@ -11,11 +11,13 @@
     <?php }  ?>
 
     <tr><td>Your Name:</td><td><?= $form->input('text', ['name' => 'name']) ?></td></tr>
+    <tr></td>Email:</td><td><?= $form->input('text',['name'=>'email'])?></td></tr>
 
     <tr><td>Size:</td>
         <td><?= $form->input('radio',['name' => 'size', 'value' => 'small']) ?> Small <br/>
             <?= $form->input('radio',['name' => 'size', 'value' => 'medium']) ?> Medium <br/>
             <?= $form->input('radio',['name' => 'size', 'value' => 'large']) ?> Large <br/>
+            <?= $form->input('radio',['name' => 'size', 'value' => 'XLarge'])?> XLarge <br/>
         </td></tr>
 
     <tr><td>Pick one sweet item:</td>
@@ -25,6 +27,10 @@
     <tr><td>Pick two main dishes:</td>
         <td><?= $form->select($GLOBALS['main_dishes'], ['name' => 'main_dish',
                                                         'multiple' => true]) ?></td>
+    </tr>
+    <tr><</td>Pick one Drink item:</td>
+    <td><?=$form->selects($GLOBALS['drink'],['name'=> 'drink'])?>
+    </td>
     </tr>
 
     <tr><td>Do you want your order delivered?</td>
@@ -36,6 +42,7 @@
         <td><?= $form->textarea(['name' => 'comments']) ?></td></tr>
 
     <tr><td colspan="2" align="center"><?= $form->input('submit', ['value' => 'Order']) ?>
+    <tr><td> colspan="2" align="center"><?=$form->input('Reset',['vale'=> 'Reset'])?>
     </td></tr>
 
 </table>
