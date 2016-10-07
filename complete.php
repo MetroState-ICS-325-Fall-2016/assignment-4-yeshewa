@@ -7,7 +7,7 @@
  */
 
 // This assumes FormHelper.php is in the same directory as
-// this filek.
+// this file.
 require 'FormHelper.php';
 
 // setup the arrays of choices in the select menus
@@ -16,7 +16,7 @@ require 'FormHelper.php';
 $sweets = array('puff' => 'Sesame Seed Puff',
                 'square' => 'Coconut Milk Gelatin Square',
                 'cake' => 'Brown Sugar Cake',
-                'ricemeat' => 'Sweet Rice and Meat');
+                'ricemeat' => 'Sweet Rice and Meat',
                 'icecream' => 'IceCream');
 
 $main_dishes = array('cuke' => 'Braised Sea Cucumber',
@@ -24,7 +24,7 @@ $main_dishes = array('cuke' => 'Braised Sea Cucumber',
                      'tripe' => 'Sauteed Tripe with Wine Sauce',
                      'taro' => 'Stewed Pork with Taro',
                      'giblets' => 'Baked Giblets with Salt',
-                     'abalone' => 'Abalone with Marrow and Duck Feet');
+                     'abalone' => 'Abalone with Marrow and Duck Feet',
                      'Cheesepizza' => 'Cheese Pizza');
 $drink = array('Coke'=> "Coke",
                'DCoke'=> "Diet Coke",
@@ -76,7 +76,7 @@ function validate_form( ) {
     if(isset($_POST['email'])) {
         $input['email'] = trim($_POST['email']);
         if(false===filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL)){
-            $errors[]="Email is not valid",
+            $errors[]="Email is not valid";
         }
     } else {
         $input['email'] = '';
@@ -107,8 +107,8 @@ function validate_form( ) {
     }else{
         $input['drink']='';
     }
-    if(!array_key_exists($input['sweet'],$GLOBALS['sweets'])){
-        $errors[] = 'Please selet a valid sweet item.';
+    if(!array_key_exists($input['drink'],$GLOBALS['drink'])){
+        $errors[] = 'Please select a valid drink item.';
     }
     // exactly two main dishes required
     if (isset($_POST['main_dish'])) {
@@ -160,7 +160,7 @@ function process_form($input) {
     }
     // build up the text of the order message
     $message=<<<_ORDER_
-Thank you for your order, {$input['name']}at{$input['email']}
+Thank you for your order, {$input['name']} at {$input['email']}
 You requested the {$input['size']} size of $sweet, $main_dish_1, and $main_dish_2.
 You $delivery want delivery.\n
 _ORDER_;

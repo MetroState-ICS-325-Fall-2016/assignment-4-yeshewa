@@ -1,9 +1,4 @@
-<?php/**
- * Created by PhpStorm.
- * User: Yeshewatsehay Berhane
- * Date: 10/5/2016
- * Time: 11:05 PM
- */
+<?php
 
 class FormHelper {
     protected $values = array();
