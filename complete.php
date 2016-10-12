@@ -161,8 +161,9 @@ function process_form($input) {
     // build up the text of the order message
     $message=<<<_ORDER_
 Thank you for your order, {$input['name']} at {$input['email']}
-You requested the {$input['size']} size of $sweet, $main_dish_1, and $main_dish_2.
+You requested the {$input['size']} size of $drink, $sweet, $main_dish_1, and $main_dish_2.
 You $delivery want delivery.\n
+
 _ORDER_;
     if (strlen(trim($input['comments']))) {
         $message .= 'Your comments: '.$input['comments'];
